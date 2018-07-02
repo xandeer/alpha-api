@@ -29,12 +29,6 @@ var routes = Routes{
 		AllItems,
 	},
 	Route{
-		"Item",
-		"OPTIONS",
-		"/items",
-		AllItems,
-	},
-	Route{
 		"FindItem",
 		"Get",
 		"/items/{id}",
@@ -65,20 +59,8 @@ var routes = Routes{
 		OperateVersion,
 	},
 	Route{
-		"GetOperateVersion",
-		"OPTIONS",
-		"/version",
-		OperateVersion,
-	},
-	Route{
 		"PullOperates",
 		"Get",
-		"/operates/{version}",
-		PullOperates,
-	},
-	Route{
-		"PullOperates",
-		"OPTIONS",
 		"/operates/{version}",
 		PullOperates,
 	},

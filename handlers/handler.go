@@ -57,7 +57,7 @@ func CreateItem(w http.ResponseWriter, r *http.Request) {
 	}
 
 	insertOperate(item, INSERT)
-	respondWithJson(w, http.StatusCreated, item)
+	respondWithJson(w, http.StatusCreated, map[string]int{"version": latestOperateVersion})
 }
 
 // PUT update an existing item
@@ -73,7 +73,7 @@ func UpdateItem(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	insertOperate(item, UPDATE)
-	respondWithJson(w, http.StatusOK, map[string]string{"result": "success"})
+	respondWithJson(w, http.StatusOK, map[string]int{"version": latestOperateVersion})
 }
 
 // DELETE an existing item
@@ -90,7 +90,7 @@ func DeleteItem(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	insertOperate(item, DELETE)
-	respondWithJson(w, http.StatusOK, map[string]string{"result": "success"})
+	respondWithJson(w, http.StatusOK, map[string]int{"version": latestOperateVersion})
 }
 
 func OperateVersion(w http.ResponseWriter, r *http.Request) {
