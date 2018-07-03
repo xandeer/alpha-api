@@ -8,8 +8,10 @@ import (
 
 // Represents database server and credentials
 type Config struct {
-	Server   string
-	Database string
+	Server      string
+	Database    string
+	PrivKeyPath string
+	PubKeyPath  string
 }
 
 // Read and parse the configuration file

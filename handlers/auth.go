@@ -3,11 +3,9 @@ package handlers
 import (
 	"encoding/json"
 	"net/http"
-	"time"
-
-	jwt "github.com/dgrijalva/jwt-go"
 
 	. "github.com/xandeer/alpha-api/models"
+	"github.com/xandeer/alpha-api/auth"
 )
 
 func Signin(w http.ResponseWriter, r *http.Request) {
@@ -24,21 +22,16 @@ func Signin(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if user.Password != userM.Password {
-		respondWithError(w, http.StatusForbidden, "Invalid use name or password")
+		respondWithError(w, http.StatusForbidden, "Invalid user name or password")
 		return
 	}
 
-	str, _ := json.Marshal(userM)
-	key := []byte(str)
+	ss, err := auth.CreateToken(user.Name)
 
-	// Create the Claims
-	claims := &jwt.StandardClaims{
-		ExpiresAt: time.Now().Add(time.Hour * 24 * 30).Unix(),
-		Issuer:    "test",
+	if err != nil {
+		respondWithError(w, http.StatusInternalServerError, "Error while Signing Token")
+		return
 	}
-
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	ss, err := token.SignedString(key)
 
 	respondWithJson(w, http.StatusOK, ss)
 }

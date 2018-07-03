@@ -18,19 +18,19 @@ type Routes []Route
 var routes = Routes{
 	Route{
 		"Item",
-		"Get",
+		"GET",
 		"/",
 		AllItems,
 	},
 	Route{
 		"Item",
-		"Get",
+		"GET",
 		"/items",
 		AllItems,
 	},
 	Route{
 		"FindItem",
-		"Get",
+		"GET",
 		"/items/{id}",
 		FindItem,
 	},
@@ -42,32 +42,32 @@ var routes = Routes{
 	},
 	Route{
 		"UpdateItem",
-		"Put",
+		"PUT",
 		"/items",
 		UpdateItem,
 	},
 	Route{
 		"DeleteItem",
-		"Delete",
+		"DELETE",
 		"/items/{id}",
 		DeleteItem,
 	},
 	Route{
 		"GetOperateVersion",
-		"Get",
+		"GET",
 		"/version",
 		OperateVersion,
 	},
 	Route{
 		"PullOperates",
-		"Get",
+		"GET",
 		"/operates/{version}",
 		PullOperates,
 	},
-	// Route{
-	// 	"Signin",
-	// 	"Post",
-	// 	"/users",
-	// 	Signin,
-	// },
+	Route{
+		"Signin",
+		"POST",
+		"/signin",
+		Signin,
+	},
 }

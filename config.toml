@@ -1,2 +1,6 @@
 server="localhost"
 database="alpha"
+# openssl genrsa -out alpha keysize
+privKeyPath = "./keys/alpha"
+# openssl rsa -in alpha -pubout > alpha.pub
+pubKeyPath = "./keys/alpha.pub"

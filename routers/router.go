@@ -10,8 +10,9 @@ import (
 
 func NewRouter() *mux.Router {
 	router := mux.NewRouter().StrictSlash(true)
-	cors := &middleware.CORSOriginsMiddleware{}
+	cors := &middleware.CORSMiddleware{}
 	logger := &middleware.LoggerMiddleware{}
+	auth := &middleware.AuthMiddleware{}
 
 	for _, route := range routes {
 		var handler http.Handler
@@ -19,15 +20,16 @@ func NewRouter() *mux.Router {
 		handler = route.HandlerFunc
 
 		router.
-			Methods(route.Method).
+			Methods(route.Method, "OPTIONS").
 			Path(route.Pattern).
 			Name(route.Name).
 			Handler(handler)
 	}
 
-	router.Use(mux.CORSMethodMiddleware(router))
-	router.Use(cors.Middleware)
+	// router.Use(mux.CORSMethodMiddleware(router))
 	router.Use(logger.Middleware)
+	router.Use(cors.Middleware)
+	router.Use(auth.Middleware)
 
 	return router
 }
