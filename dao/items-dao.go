@@ -37,6 +37,14 @@ func (m *DAO) DeleteItemById(id string) error {
 
 // Update an existing item
 func (m *DAO) UpdateItem(item Item) error {
-	err := db.C(ITEMS_COLLECTION).UpdateId(item.ID, &item)
-	return err
+	var temp Item
+	var e error
+	err := db.C(ITEMS_COLLECTION).FindId(item.ID).One(&temp)
+
+	if err != nil {
+		e = m.InsertItem(item)
+	} else {
+		e = db.C(ITEMS_COLLECTION).UpdateId(item.ID, &item)
+	}
+	return e
 }
