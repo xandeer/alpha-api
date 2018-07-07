@@ -45,7 +45,7 @@ func (mw *AuthMiddleware) Middleware(h http.Handler) http.Handler {
 			return
 		}
 		if r.RequestURI == "/signin" {
-			response, _ := json.Marshal(token)
+			response, _ := json.Marshal(token.Raw)
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusOK)
 			w.Write(response)
